@@ -1,0 +1,710 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.7 375dc00a",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-08T20:23:05Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 96375056,
+  "lat": 49.1757071,
+  "lon": 16.5301824,
+  "tags": {
+    "name": "Bosonohy",
+    "name:cs": "Bosonohy",
+    "name:de": "Parfuß",
+    "place": "suburb",
+    "population": "2210",
+    "ref:cobe": "411680",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q894482",
+    "wikipedia": "cs:Brno-Bosonohy"
+  }
+},
+{
+  "type": "node",
+  "id": 96375060,
+  "lat": 49.2262815,
+  "lon": 16.5304889,
+  "tags": {
+    "loc_name": "Bastr",
+    "name": "Bystrc",
+    "name:cs": "Bystrc",
+    "name:de": "Bisterz",
+    "name:ru": "Бистрц",
+    "place": "suburb",
+    "population": "23805",
+    "ref:cobe": "411744",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q3564800",
+    "wikipedia": "cs:Brno-Bystrc"
+  }
+},
+{
+  "type": "node",
+  "id": 96375061,
+  "lat": 49.2511650,
+  "lon": 16.5792530,
+  "tags": {
+    "name": "Řečkovice",
+    "name:cs": "Řečkovice",
+    "name:de": "Retschkowitz",
+    "name:ru": "Ржечковице",
+    "place": "suburb",
+    "population": "14304",
+    "ref:cobe": "411876",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q10513790",
+    "wikipedia": "cs:Řečkovice"
+  }
+},
+{
+  "type": "node",
+  "id": 118712806,
+  "lat": 49.1586827,
+  "lon": 16.6526339,
+  "tags": {
+    "name": "Brněnské Ivanovice",
+    "name:cs": "Brněnské Ivanovice",
+    "name:de": "Nennowitz",
+    "place": "suburb",
+    "ref:cobe": "012220",
+    "ref:zsj": "012220",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q11343404"
+  }
+},
+{
+  "type": "node",
+  "id": 118712809,
+  "lat": 49.1476701,
+  "lon": 16.6677987,
+  "tags": {
+    "name": "Tuřany",
+    "name:cs": "Tuřany",
+    "name:de": "Turas",
+    "name:ru": "Туржаны",
+    "place": "suburb",
+    "population": "2100",
+    "ref:cobe": "012173",
+    "ref:zsj": "012173",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q8012740"
+  }
+},
+{
+  "type": "node",
+  "id": 118712813,
+  "lat": 49.1432997,
+  "lon": 16.6509227,
+  "tags": {
+    "name": "Holásky",
+    "name:cs": "Holásky",
+    "name:de": "Holasek",
+    "place": "suburb",
+    "population": "935",
+    "ref:cobe": "411698",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q12020032",
+    "wikipedia": "cs:Holásky"
+  }
+},
+{
+  "type": "node",
+  "id": 150900593,
+  "lat": 49.2196466,
+  "lon": 16.5522187,
+  "tags": {
+    "name": "Komín",
+    "name:cs": "Komín",
+    "name:de": "Komein",
+    "name:ru": "Комин",
+    "place": "suburb",
+    "ref:cobe": "411957",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q10816603",
+    "wikipedia": "cs:Brno-Komín"
+  }
+},
+{
+  "type": "node",
+  "id": 213195550,
+  "lat": 49.2413929,
+  "lon": 16.5725897,
+  "tags": {
+    "name": "Medlánky",
+    "name:cs": "Medlánky",
+    "name:de": "Medlan",
+    "name:ru": "Медланки",
+    "old_name": "Medlany",
+    "place": "suburb",
+    "population": "3163",
+    "ref:cobe": "411850",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q11341889",
+    "wikipedia": "cs:Brno-Medlánky"
+  }
+},
+{
+  "type": "node",
+  "id": 213195553,
+  "lat": 49.2086785,
+  "lon": 16.5526680,
+  "tags": {
+    "name": "Jundrov",
+    "name:cs": "Jundrov",
+    "name:de": "Jundorf",
+    "name:ru": "Юндров",
+    "old_name": "Sulostovice,Judendorf,Jundorff,Juondorf",
+    "place": "suburb",
+    "ref:cobe": "490369",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q11341698",
+    "wikipedia": "cs:Brno-Jundrov"
+  }
+},
+{
+  "type": "node",
+  "id": 213195558,
+  "lat": 49.2310811,
+  "lon": 16.5922421,
+  "tags": {
+    "loc_name": "Kénik;Krpole",
+    "name": "Královo Pole",
+    "name:cs": "Královo Pole",
+    "name:de": "Königsfeld",
+    "name:ru": "Кралово Поле",
+    "place": "suburb",
+    "ref:cobe": "411965",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q599929",
+    "wikipedia": "cs:Královo Pole"
+  }
+},
+{
+  "type": "node",
+  "id": 213195562,
+  "lat": 49.2190787,
+  "lon": 16.5787572,
+  "tags": {
+    "loc_name": "Žabiny",
+    "name": "Žabovřesky",
+    "name:cs": "Žabovřesky",
+    "name:de": "Sebrowitz",
+    "name:ru": "Жабовржески",
+    "old_name": "Manice",
+    "place": "suburb",
+    "ref:cobe": "411922",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q3507601",
+    "wikipedia": "cs:Brno-Žabovřesky"
+  }
+},
+{
+  "type": "node",
+  "id": 288164640,
+  "lat": 49.2613704,
+  "lon": 16.5911079,
+  "tags": {
+    "name": "Mokrá Hora",
+    "name:cs": "Mokrá Hora",
+    "name:de": "Mokrahora",
+    "name:ru": "Мокра Гора",
+    "place": "suburb",
+    "population": "687",
+    "ref:cobe": "411884",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q12038508",
+    "wikipedia": "cs:Mokrá Hora"
+  }
+},
+{
+  "type": "node",
+  "id": 305914419,
+  "lat": 49.1822955,
+  "lon": 16.5606237,
+  "tags": {
+    "name": "Nový Lískovec",
+    "name:cs": "Nový Lískovec",
+    "name:de": "Neu Leskau",
+    "name:ru": "Нови Лисковец",
+    "place": "suburb",
+    "ref:cobe": "411868",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q11341920",
+    "wikipedia": "cs:Brno-Nový Lískovec"
+  }
+},
+{
+  "type": "node",
+  "id": 305914424,
+  "lat": 49.1680795,
+  "lon": 16.5846306,
+  "tags": {
+    "name": "Bohunice",
+    "name:cs": "Bohunice",
+    "name:de": "Bohonitz",
+    "name:ru": "Богунице",
+    "name:uk": "Богуниці",
+    "place": "suburb",
+    "ref:cobe": "411671",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q2925833",
+    "wikipedia": "cs:Brno-Bohunice"
+  }
+},
+{
+  "type": "node",
+  "id": 305914425,
+  "lat": 49.1695911,
+  "lon": 16.5610137,
+  "tags": {
+    "name": "Starý Lískovec",
+    "name:cs": "Starý Lískovec",
+    "name:de": "Alt Leskau",
+    "name:ru": "Стари Лисковец",
+    "place": "suburb",
+    "ref:cobe": "411906",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q3565077",
+    "wikipedia": "cs:Brno-Starý Lískovec"
+  }
+},
+{
+  "type": "node",
+  "id": 309787012,
+  "lat": 49.2362633,
+  "lon": 16.5276942,
+  "tags": {
+    "name": "Kníničky",
+    "name:cs": "Kníničky",
+    "name:de": "Klein Kinitz",
+    "name:ru": "Книнички",
+    "place": "suburb",
+    "population": "513",
+    "ref:cobe": "011908",
+    "ref:zsj": "011908",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q11341732",
+    "wikipedia": "cs:Brno-Kníničky"
+  }
+},
+{
+  "type": "node",
+  "id": 309787282,
+  "lat": 49.1757710,
+  "lon": 16.6874489,
+  "tags": {
+    "name": "Slatina",
+    "name:cs": "Slatina",
+    "name:de": "Latein",
+    "name:ru": "Слатина",
+    "place": "suburb",
+    "ref:cobe": "411892",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q4597367",
+    "wikipedia": "cs:Brno-Slatina"
+  }
+},
+{
+  "type": "node",
+  "id": 309878900,
+  "lat": 49.1996529,
+  "lon": 16.6150593,
+  "tags": {
+    "name": "Zábrdovice",
+    "name:cs": "Zábrdovice",
+    "name:de": "Obrowitz",
+    "name:ru": "Забрдовице",
+    "place": "suburb",
+    "ref:cobe": "490407",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q10861698",
+    "wikipedia": "cs:Zábrdovice"
+  }
+},
+{
+  "type": "node",
+  "id": 309878902,
+  "lat": 49.2121943,
+  "lon": 16.6230559,
+  "tags": {
+    "loc_name": "Blekfild",
+    "name": "Černá Pole",
+    "name:cs": "Černá Pole",
+    "name:de": "Schwarzfeld",
+    "name:ru": "Черна Поле",
+    "place": "suburb",
+    "ref:cobe": "490423",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q3565523",
+    "wikipedia": "cs:Černá Pole"
+  }
+},
+{
+  "type": "node",
+  "id": 309878903,
+  "lat": 49.2122425,
+  "lon": 16.5966644,
+  "tags": {
+    "name": "Ponava",
+    "name:cs": "Ponava",
+    "name:ru": "Понава",
+    "place": "suburb",
+    "ref:cobe": "411973",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q12046344",
+    "wikipedia": "cs:Ponava"
+  }
+},
+{
+  "type": "node",
+  "id": 309878906,
+  "lat": 49.2019241,
+  "lon": 16.5952911,
+  "tags": {
+    "name": "Veveří",
+    "name:cs": "Veveří",
+    "name:de": "Eichhorn",
+    "name:ru": "Вевержи",
+    "place": "suburb",
+    "ref:cobe": "411639",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q11891490",
+    "wikipedia": "cs:Veveří (část Brna)"
+  }
+},
+{
+  "type": "node",
+  "id": 309878908,
+  "lat": 49.2005758,
+  "lon": 16.5793640,
+  "tags": {
+    "name": "Stránice",
+    "name:cs": "Stránice",
+    "name:de": "Stranitz",
+    "name:ru": "Странице",
+    "place": "suburb",
+    "ref:cobe": "411621",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q12056654",
+    "wikipedia": "cs:Stránice"
+  }
+},
+{
+  "type": "node",
+  "id": 309878909,
+  "lat": 49.2278575,
+  "lon": 16.6087086,
+  "tags": {
+    "name": "Sadová",
+    "name:cs": "Sadová",
+    "name:ru": "Садова",
+    "place": "suburb",
+    "ref:cobe": "411981",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q12050809",
+    "wikipedia": "cs:Sadová (Brno-Královo Pole)"
+  }
+},
+{
+  "type": "node",
+  "id": 309878911,
+  "lat": 49.2260605,
+  "lon": 16.6271651,
+  "tags": {
+    "name": "Lesná",
+    "name:cs": "Lesná",
+    "name:ru": "Лесна",
+    "place": "suburb",
+    "ref:cobe": "411710",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q10816747",
+    "wikipedia": "cs:Lesná (Brno)"
+  }
+},
+{
+  "type": "node",
+  "id": 309878913,
+  "lat": 49.2288939,
+  "lon": 16.6443756,
+  "tags": {
+    "name": "Obřany",
+    "name:cs": "Obřany",
+    "name:de": "Oberseß",
+    "name:ru": "Обржани",
+    "place": "suburb",
+    "ref:cobe": "411841",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q1669885",
+    "wikipedia": "cs:Obřany"
+  }
+},
+{
+  "type": "node",
+  "id": 309878915,
+  "lat": 49.2184875,
+  "lon": 16.6414204,
+  "tags": {
+    "name": "Maloměřice",
+    "name:cs": "Maloměřice",
+    "name:de": "Malmeritz",
+    "name:ru": "Маломержице",
+    "place": "suburb",
+    "ref:cobe": "490377",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q12035017",
+    "wikipedia": "cs:Maloměřice"
+  }
+},
+{
+  "type": "node",
+  "id": 309878918,
+  "lat": 49.2122192,
+  "lon": 16.6313491,
+  "tags": {
+    "name": "Husovice",
+    "name:cs": "Husovice",
+    "name:de": "Hussowitz",
+    "name:ru": "Гусовице",
+    "place": "suburb",
+    "ref:cobe": "411701",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q12020978",
+    "wikipedia": "cs:Husovice"
+  }
+},
+{
+  "type": "node",
+  "id": 309878920,
+  "lat": 49.1979615,
+  "lon": 16.6435716,
+  "tags": {
+    "loc_name": "Šimice",
+    "name": "Židenice",
+    "name:cs": "Židenice",
+    "name:de": "Schimitz",
+    "name:ru": "Жиденице",
+    "place": "suburb",
+    "ref:cobe": "490415",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q9179451",
+    "wikipedia": "cs:Brno-Židenice"
+  }
+},
+{
+  "type": "node",
+  "id": 309878922,
+  "lat": 49.1858169,
+  "lon": 16.6439115,
+  "tags": {
+    "name": "Černovice",
+    "name:cs": "Černovice",
+    "name:de": "Tschernowitz",
+    "name:ru": "Черновице",
+    "place": "suburb",
+    "ref:cobe": "411752",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q11342332",
+    "wikipedia": "cs:Brno-Černovice"
+  }
+},
+{
+  "type": "node",
+  "id": 309878924,
+  "lat": 49.1780597,
+  "lon": 16.6247290,
+  "tags": {
+    "name": "Komárov",
+    "name:cs": "Komárov",
+    "name:de": "Kumrowitz",
+    "name:ru": "Комаров",
+    "place": "suburb",
+    "ref:cobe": "411795",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q12029978",
+    "wikipedia": "cs:Komárov (Brno)"
+  }
+},
+{
+  "type": "node",
+  "id": 309878925,
+  "lat": 49.1911809,
+  "lon": 16.6181698,
+  "tags": {
+    "name": "Trnitá",
+    "name:cs": "Trnitá",
+    "name:ru": "Трнита",
+    "place": "suburb",
+    "ref:cobe": "490393",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q12059686",
+    "wikipedia": "cs:Trnitá"
+  }
+},
+{
+  "type": "node",
+  "id": 309878927,
+  "lat": 49.1811274,
+  "lon": 16.5965137,
+  "tags": {
+    "name": "Štýřice",
+    "name:cs": "Štýřice",
+    "name:ru": "Штиржице",
+    "place": "suburb",
+    "ref:cobe": "411604",
+    "source": "csu:uir-zsj",
+    "source:position": "localknowledge",
+    "wikidata": "Q10424523",
+    "wikipedia": "cs:Štýřice"
+  }
+},
+{
+  "type": "node",
+  "id": 309878929,
+  "lat": 49.1954165,
+  "lon": 16.5760085,
+  "tags": {
+    "loc_name": "Šrajbec",
+    "name": "Pisárky",
+    "name:cs": "Pisárky",
+    "name:de": "Schreibwald",
+    "name:ru": "Писарки",
+    "place": "suburb",
+    "ref:cobe": "490385",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q12045363"
+  }
+},
+{
+  "type": "node",
+  "id": 309878933,
+  "lat": 49.1877317,
+  "lon": 16.5994778,
+  "tags": {
+    "loc_name": "Oltec",
+    "name": "Staré Brno",
+    "name:cs": "Staré Brno",
+    "name:de": "Altbrünn",
+    "name:ru": "Старэ Брно",
+    "place": "suburb",
+    "ref:cobe": "411591",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q12056185"
+  }
+},
+{
+  "type": "node",
+  "id": 309878935,
+  "lat": 49.1558582,
+  "lon": 16.6217916,
+  "tags": {
+    "name": "Dolní Heršpice",
+    "name:cs": "Dolní Heršpice",
+    "name:de": "Unter Gerspitz",
+    "place": "suburb",
+    "ref:cobe": "012114",
+    "ref:zsj": "012114",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q11815824",
+    "wikipedia": "cs:Dolní Heršpice"
+  }
+},
+{
+  "type": "node",
+  "id": 309878936,
+  "lat": 49.1708391,
+  "lon": 16.6157609,
+  "tags": {
+    "name": "Horní Heršpice",
+    "name:cs": "Horní Heršpice",
+    "name:de": "Ober Gerspitz",
+    "place": "suburb",
+    "ref:cobe": "411809",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q12020174",
+    "wikipedia": "cs:Horní Heršpice"
+  }
+},
+{
+  "type": "node",
+  "id": 429205090,
+  "lat": 49.1449372,
+  "lon": 16.6205929,
+  "tags": {
+    "name": "Přízřenice",
+    "name:cs": "Přízřenice",
+    "name:de": "Priesenitz",
+    "place": "suburb",
+    "ref:cobe": "012149",
+    "ref:zsj": "012149",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q12048355"
+  }
+},
+{
+  "type": "node",
+  "id": 1601566698,
+  "lat": 49.1940367,
+  "lon": 16.5387077,
+  "tags": {
+    "name": "Kohoutovice",
+    "name:cs": "Kohoutovice",
+    "name:de": "Kohoutowitz",
+    "name:ru": "Когоутовице",
+    "place": "suburb",
+    "ref:cobe": "411779",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q12029741"
+  }
+},
+{
+  "type": "node",
+  "id": 1601566701,
+  "lat": 49.1915960,
+  "lon": 16.6111292,
+  "tags": {
+    "name": "Brno-město",
+    "name:cs": "Brno-město",
+    "name:de": "Brünn-Stadt",
+    "place": "suburb",
+    "ref:cobe": "411582",
+    "source": "csu:uir-zsj",
+    "wikidata": "Q12039338",
+    "wikipedia": "cs:Město Brno"
+  }
+},
+{
+  "type": "node",
+  "id": 1978444984,
+  "lat": 49.2051388,
+  "lon": 16.6594442,
+  "tags": {
+    "name": "Vinohrady",
+    "name:cs": "Vinohrady",
+    "name:de": "Weinberge",
+    "name:ru": "Винограды",
+    "place": "suburb",
+    "ref:zsj": "011134",
+    "wikidata": "Q11342029",
+    "wikipedia": "cs:Brno-Vinohrady"
+  }
+},
+{
+  "type": "node",
+  "id": 5949003592,
+  "lat": 49.2075008,
+  "lon": 16.6867542,
+  "tags": {
+    "name": "Líšeň",
+    "name:de": "Lösch",
+    "name:ru": "Лишень",
+    "place": "suburb"
+  }
+}
+
+  ]
+}
