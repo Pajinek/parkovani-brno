@@ -291,3 +291,64 @@ footer li + li { margin-top: 4px; }
 @media (max-width: 900px) { footer .cols { grid-template-columns: 1fr; gap: 16px; } }
 @media (max-width: 520px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } #map { height: 62vh; } }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* ---------- stránka pravidel ---------- */
+.rules { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 20px; align-items: start; }
+@media (max-width: 900px) {
+  .rules { grid-template-columns: minmax(0, 1fr); }
+  .toc { position: static; order: -1; }
+}
+
+.sheet { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); padding: clamp(20px, 3vw, 40px); min-width: 0; }
+.sheet > header .eyebrow { margin-bottom: 6px; }
+.lead { font-size: 17px; line-height: 1.55; margin: 10px 0 0; max-width: 68ch; }
+.meta { margin: 14px 0 0; font-size: 13px; color: var(--muted); }
+.meta a, .sheet a { color: var(--fg); text-underline-offset: 3px; text-decoration-color: var(--accent); }
+.meta a:hover, .sheet a:hover { color: var(--accent); }
+
+.sheet h2 { font: 700 clamp(22px, 2.4vw, 28px)/1.15 var(--f-display); margin: 36px 0 10px; letter-spacing: -.015em; scroll-margin-top: 16px; }
+.sheet h3 { font: 700 18px/1.25 var(--f-display); margin: 22px 0 8px; letter-spacing: 0; text-transform: none; color: var(--fg); }
+.sheet p { margin: 8px 0 0; max-width: 72ch; }
+.sheet ul, .sheet ol { margin: 10px 0 0; padding: 0 0 0 1.2em; max-width: 72ch; }
+.sheet li + li { margin-top: 6px; }
+.sheet hr { border: 0; border-top: 1px solid var(--line); margin: 28px 0; }
+
+.zgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 14px; }
+@media (max-width: 800px) { .zgrid { grid-template-columns: 1fr; } }
+.zcard { background: var(--surface-2); border-radius: 12px; padding: 14px 14px 16px; border-top: 4px solid var(--muted); min-width: 0; }
+.zcard.A { border-top-color: var(--zone-A); }
+.zcard.B { border-top-color: var(--zone-B); }
+.zcard.C { border-top-color: var(--zone-C); }
+.zcard h3 { margin: 8px 0 0; font: 700 18px/1.2 var(--f-display); }
+.zcard .where { margin: 2px 0 10px; color: var(--muted); font-size: 13px; }
+.zcard dl { margin: 0; display: grid; gap: 8px; }
+.zcard dt { font: 600 11px/1.2 var(--f-body); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.zcard dd { margin: 2px 0 0; font-size: 14.5px; }
+
+.sheet .tbl-wrap { margin: 12px 0 0; max-height: none; overflow-x: auto; }
+.sheet td { vertical-align: top; }
+.sheet th { cursor: default; white-space: normal; }
+.sheet table.wide { min-width: 720px; }
+.yn { font-weight: 650; }
+.yn.yes { color: var(--gain); }
+.yn.no { color: var(--loss); }
+
+.flower { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; max-width: 460px; margin: 16px 0 4px; }
+.flower span { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 64px; border-radius: 12px; background: color-mix(in srgb, var(--accent) 14%, var(--surface-2)); border: 1px dashed var(--accent); text-align: center; font: 650 14px/1.2 var(--f-num); font-variant-numeric: tabular-nums; padding: 8px; }
+.flower span small { display: block; font: 500 11px/1.2 var(--f-body); color: var(--muted); margin-top: 2px; }
+.flower .hub { background: var(--accent); color: var(--accent-fg); border-style: solid; }
+.flower .hub small { color: color-mix(in srgb, var(--accent-fg) 80%, transparent); }
+.flower .gap { background: transparent; border: 0; }
+
+.subareas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 16px; margin: 10px 0 0; padding: 0; list-style: none; max-width: 640px; }
+.subareas li { margin: 0; display: flex; gap: 8px; align-items: baseline; }
+.subareas b { font: 650 13px/1 var(--f-num); font-variant-numeric: tabular-nums; color: var(--accent); min-width: 1.2em; }
+
+.toc { position: sticky; top: 16px; }
+.toc h2 { font: 600 11px/1.2 var(--f-body); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 8px; }
+.toc ol { margin: 0; padding: 0; list-style: none; counter-reset: toc; }
+.toc li { counter-increment: toc; }
+.toc a { display: flex; gap: 8px; padding: 6px 0; color: var(--fg); text-decoration: none; border-bottom: 1px solid var(--line); font-size: 14px; }
+.toc a::before { content: counter(toc); font: 650 12px/1.4 var(--f-num); color: var(--accent); min-width: 1.2em; }
+.toc a:hover { color: var(--accent); }
+.toc .card h2 { margin-bottom: 8px; }

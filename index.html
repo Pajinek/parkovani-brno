@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<noscript><p style="padding:16px">Mapa parkování vyžaduje zapnutý JavaScript. Pravidla najdete v souboru docs/zony-a-kytickova-pravidla.md.</p></noscript>
+<noscript><p style="padding:16px">Mapa parkování vyžaduje zapnutý JavaScript. Pravidla jsou na stránce <a href="pravidla.html">pravidla.html</a>.</p></noscript>
 
 <div class="wrap">
   <header class="top">
@@ -23,6 +23,10 @@
       </div>
     </div>
     <div class="controls">
+      <nav class="pagenav" aria-label="Stránky">
+        <a class="navlink" href="index.html" aria-current="page">Mapa</a>
+        <a class="navlink" href="pravidla.html">Pravidla</a>
+      </nav>
       <label class="eyebrow" for="areaSel">Oblast</label>
       <select id="areaSel"><option value="">Celé Brno</option></select>
       <button type="button" id="copyLink">Kopírovat odkaz</button>
@@ -79,7 +83,7 @@
         <ul>
           <li>Zóny a oblasti: <a href="https://www.parkovanivbrne.cz/mapa/" target="_blank" rel="noopener">parkovanivbrne.cz</a></li>
           <li>Mapový podklad: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">přispěvatelé OpenStreetMap</a> (ODbL)</li>
-          <li>Pravidla a tarify: <code>docs/zony-a-kytickova-pravidla.md</code></li>
+          <li>Pravidla a tarify: <a href="pravidla.html">Zóny a květinka</a></li>
           <li>Data k <span id="dataDate"></span></li>
         </ul>
       </section>

@@ -6,7 +6,7 @@ Přehled pravidel rezidentního parkování ve městě Brně (stav k 12. 11. 202
 
 ## Webová mapa zón
 
-Soubor [`index.html`](index.html) otevřete přímo v prohlížeči (stačí HTML, JS a SVG, bez serveru). Vzhled (písma Source Sans 3 / Source Serif 4, červený akcent, tmavý režim) je převzatý z projektu [elections-brno](https://github.com/Pajinek/elections-brno); bez internetu se místo písem Source použijí systémová. Zobrazuje mapu Brna z OpenStreetMap se zónami A/B/C a rezidentními oblastmi. Po kliknutí na oblast ukáže její „květinku“ (viz [pravidla](docs/zony-a-kytickova-pravidla.md)). Odkaz na konkrétní oblast: `index.html?oblast=1-14` (vrstvy lze zadat jako `&vrstvy=zony,oblasti,vjezdy`).
+Soubor [`index.html`](index.html) otevřete přímo v prohlížeči (stačí HTML, JS a SVG, bez serveru). Vzhled (písma Source Sans 3 / Source Serif 4, červený akcent, tmavý režim) je převzatý z projektu [elections-brno](https://github.com/Pajinek/elections-brno); bez internetu se místo písem Source použijí systémová. Zobrazuje mapu Brna z OpenStreetMap se zónami A/B/C a rezidentními oblastmi. Po kliknutí na oblast ukáže její „květinku“. Samostatná stránka [pravidel](pravidla.html) shrnuje zóny, květinku a vjezd do centra (zdrojový text je v [docs/zony-a-kytickova-pravidla.md](docs/zony-a-kytickova-pravidla.md)). Odkaz na konkrétní oblast: `index.html?oblast=1-14` (vrstvy lze zadat jako `&vrstvy=zony,oblasti,vjezdy`).
 
 Mapová data jsou předpočítaná v `js/map-data.js`. Aktualizace:
 
@@ -236,7 +236,7 @@ V zastoupení je nutná plná moc.
 
 Do zóny C nespadá celé Brno, jen oblasti, které se do systému připojily.
 
-Podrobný rozbor (kdo kde může parkovat, podoblasti historického centra, vjezdy, mapy) a stažené PDF najdeš v [`docs/zony-a-kytickova-pravidla.md`](docs/zony-a-kytickova-pravidla.md).
+Podrobný rozbor (kdo kde může parkovat, podoblasti historického centra, vjezdy, mapy) je na stránce [`pravidla.html`](pravidla.html). Zdrojový text a odkazy na PDF jsou v [`docs/zony-a-kytickova-pravidla.md`](docs/zony-a-kytickova-pravidla.md).
 
 ## Další pravidla a výjimky
 
