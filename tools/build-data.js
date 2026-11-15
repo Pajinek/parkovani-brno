@@ -56,27 +56,31 @@ function simplify(pts, tol) {
   return pts.filter((_, i) => keep[i]);
 }
 
-const fmt = (n) => {
-  const s = (Math.round(n * 10) / 10).toString();
+// dec = počet desetinných míst. Podklad (silnice, zeleň) stačí na celé metry.
+function fmt(n, dec = 1) {
+  const p = 10 ** dec;
+  const s = (Math.round(n * p) / p).toString();
   return s === '-0' ? '0' : s;
-};
+}
 
 // Cesta s relativními souřadnicemi (kompaktní). Zaokrouhlování se nekumuluje.
-function toPath(pts, close) {
+function toPath(pts, close, dec = 1) {
   if (pts.length < 2) return '';
-  let rx = Math.round(pts[0][0] * 10) / 10;
-  let ry = Math.round(pts[0][1] * 10) / 10;
-  let s = `M${fmt(rx)} ${fmt(ry)}`;
+  const p = 10 ** dec;
+  const q = (n) => Math.round(n * p) / p;
+  let rx = q(pts[0][0]);
+  let ry = q(pts[0][1]);
+  let s = `M${fmt(rx, dec)} ${fmt(ry, dec)}`;
   const parts = [];
   for (let i = 1; i < pts.length; i++) {
-    const ax = Math.round(pts[i][0] * 10) / 10;
-    const ay = Math.round(pts[i][1] * 10) / 10;
-    const dx = Math.round((ax - rx) * 10) / 10;
-    const dy = Math.round((ay - ry) * 10) / 10;
+    const ax = q(pts[i][0]);
+    const ay = q(pts[i][1]);
+    const dx = q(ax - rx);
+    const dy = q(ay - ry);
     rx = ax;
     ry = ay;
     if (dx === 0 && dy === 0) continue;
-    parts.push(`${fmt(dx)} ${fmt(dy)}`);
+    parts.push(`${fmt(dx, dec)} ${fmt(dy, dec)}`);
   }
   if (!parts.length) return '';
   s += 'l' + parts.join(' ');
@@ -128,12 +132,19 @@ function polygonRings(el) {
   return [];
 }
 
-function polygonPath(elements, tol) {
+// minArea: zahodí prvky, jejichž největší okruh je menší (drobné trávníky na přehledu nejsou vidět).
+function polygonPath(elements, tol, dec = 1, minArea = 0) {
   const out = [];
   for (const el of elements) {
+    const rings = [];
     for (const ring of polygonRings(el)) {
       const p = toPts(ring, tol);
-      const d = toPath(p, true);
+      if (p.length >= 3) rings.push(p);
+    }
+    if (!rings.length) continue;
+    if (minArea && rings.every((p) => polyArea(p) < minArea)) continue;
+    for (const p of rings) {
+      const d = toPath(p, true, dec);
       if (d) out.push(d);
     }
   }
@@ -141,11 +152,11 @@ function polygonPath(elements, tol) {
 }
 const toPts = (geom, tol) => simplify(geomToPts(geom), tol);
 
-function linePath(elements, tol) {
+function linePath(elements, tol, dec = 1) {
   const out = [];
   for (const el of elements) {
     if (!el.geometry || el.geometry.length < 2) continue;
-    const d = toPath(toPts(el.geometry, tol), false);
+    const d = toPath(toPts(el.geometry, tol), false, dec);
     if (d) out.push(d);
   }
   return out.join('');
@@ -171,8 +182,11 @@ for (const w of roadsRaw) {
   if (w.type !== 'way' || !w.tags) continue;
   roadGroups[roadClass(w.tags.highway)].push(w);
 }
+// Tolerance v metrech: při přehledu města je 1 px několik metrů, při přiblížení
+// zůstane odchylka pod pár pixely. Celé metry výrazně zkrátí cestu.
+const ROAD_TOL = { motorway: 1.5, primary: 1.5, secondary: 2, tertiary: 2.5, minor: 2.5, pedestrian: 1.2 };
 const roads = {};
-for (const k of Object.keys(roadGroups)) roads[k] = linePath(roadGroups[k], 0.5);
+for (const k of Object.keys(roadGroups)) roads[k] = linePath(roadGroups[k], ROAD_TOL[k], 0);
 
 const waterAreas = waterRaw.filter((e) => e.tags && e.tags.natural === 'water');
 const waterLines = waterRaw.filter((e) => e.type === 'way' && e.tags && e.tags.waterway);
@@ -189,12 +203,14 @@ const places = placesRaw
 // ---------- zóny a oblasti z parkovanivbrne.cz ----------
 const src = readJSON('zones-source.json');
 
-function geoJsonPath(geom) {
+function geoJsonPath(geom, tol = 0, dec = 1) {
   const rings = geom.type === 'Polygon' ? geom.coordinates : geom.coordinates.flat();
   const out = [];
   for (const ring of rings) {
-    const pts = ring.map(([lon, lat]) => project(lon, lat));
-    out.push(toPath(pts, true));
+    let pts = ring.map(([lon, lat]) => project(lon, lat));
+    if (tol) pts = simplify(pts, tol);
+    const d = toPath(pts, true, dec);
+    if (d) out.push(d);
   }
   return out.join('');
 }
@@ -238,7 +254,7 @@ const zones = src.zony.features
   .map((f) => {
     const meta = ZONE_META[f.properties.title];
     f.geometry.coordinates.forEach((r) => extend(r.map(([lo, la]) => project(lo, la))));
-    return { id: meta.id, name: f.properties.title, color: meta.color, d: geoJsonPath(f.geometry) };
+    return { id: meta.id, name: f.properties.title, color: meta.color, d: geoJsonPath(f.geometry, 2, 0) };
   })
   .sort((a, b) => b.id.localeCompare(a.id)); // C, B, A (A navrchu)
 
@@ -317,6 +333,18 @@ function areaFeature(f, planned) {
   const note = m && m[3] && /rezident/i.test(m[3]) ? m[3] : '';
   const rings = f.geometry.coordinates.map((r) => r.map(([lo, la]) => project(lo, la)));
   rings.forEach(extend);
+  let minX = Infinity;
+  let minY = Infinity;
+  let maxX = -Infinity;
+  let maxY = -Infinity;
+  for (const ring of rings) {
+    for (const [x, y] of ring) {
+      if (x < minX) minX = x;
+      if (y < minY) minY = y;
+      if (x > maxX) maxX = x;
+      if (y > maxY) maxY = y;
+    }
+  }
   const main = rings.reduce((a, b) => (polyArea(b) > polyArea(a) ? b : a));
   const c = labelPoint(main);
   return {
@@ -325,7 +353,8 @@ function areaFeature(f, planned) {
     note,
     planned: planned || !!note,
     zone: p.sid === '1-01' ? 'A' : detectZone(rings),
-    d: geoJsonPath(f.geometry),
+    d: geoJsonPath(f.geometry, 1.5, 0),
+    b: [Math.round(minX), Math.round(minY), Math.round(maxX), Math.round(maxY)],
     x: Math.round(c.x),
     y: Math.round(c.y),
     area: Math.round(polyArea(main)),
@@ -348,17 +377,25 @@ for (const f of allAreaFeatures) {
 const entries = src.vjezdy.features.map((f) => ({
   name: f.properties.title.replace(/^oblast\s+/, ''),
   color: f.properties.color,
-  d: geoJsonPath(f.geometry),
+  d: geoJsonPath(f.geometry, 1, 0),
 }));
 
+let generated = new Date().toISOString().slice(0, 10);
+// --keep-date: přegenerování jen kvůli geometrii nemá posouvat datum „stav k“.
+if (process.argv.includes('--keep-date') && fs.existsSync(OUT)) {
+  const prev = /"generated":"(\d{4}-\d{2}-\d{2})"/.exec(fs.readFileSync(OUT, 'utf8'));
+  if (prev) generated = prev[1];
+}
+
 const data = {
-  generated: new Date().toISOString().slice(0, 10),
+  generated,
   bounds: bounds.map(Math.round),
-  water: polygonPath(waterAreas, 0.8),
-  waterways: linePath(waterLines, 0.8),
-  parks: polygonPath(greenParks, 1),
-  woods: polygonPath(greenWoods, 1.5),
-  rail: linePath(railRaw.filter((w) => w.type === 'way'), 1),
+  // tolerance v metrech, souřadnice na celé metry, min. plocha v m²
+  water: polygonPath(waterAreas, 2, 0, 600),
+  waterways: linePath(waterLines, 2, 0),
+  parks: polygonPath(greenParks, 3, 0, 1000),
+  woods: polygonPath(greenWoods, 4, 0, 2000),
+  rail: linePath(railRaw.filter((w) => w.type === 'way'), 2.5, 0),
   roads,
   places,
   zones,

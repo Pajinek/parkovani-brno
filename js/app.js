@@ -59,38 +59,50 @@
   const S = { sel: null, layers: { zones: true, areas: true, entries: false } };
 
   // ---------------------------------------------------------------- vykreslení vrstev
+  // Zóny a oblasti hned (jde na ně kliknout). Podklad se doplní až po prvním snímku.
   const gBase = group('g-base');
-  mk('path', { d: D.woods, class: 'm-wood' }, gBase);
-  mk('path', { d: D.parks, class: 'm-park' }, gBase);
-  mk('path', { d: D.water, class: 'm-water' }, gBase);
-  const waterways = mk('path', { d: D.waterways, class: 'm-waterway', fill: 'none', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, gBase);
+  const woodsEl = mk('path', { class: 'm-wood' }, gBase);
+  const parksEl = mk('path', { class: 'm-park' }, gBase);
+  const waterEl = mk('path', { class: 'm-water' }, gBase);
+  const waterways = mk('path', { class: 'm-waterway', fill: 'none', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, gBase);
 
   const gZones = group('g-zones');
-  for (const z of D.zones) mk('path', { d: z.d, class: 'zone-path z-' + z.id }, gZones);
+  const zonePaths = D.zones.map((z) => mk('path', { d: z.d, class: 'zone-path z-' + z.id }, gZones));
 
+  const defs = svg.querySelector('defs');
   const gRail = group('g-rail');
-  const railBase = mk('path', { d: D.rail, class: 'm-rail', fill: 'none' }, gRail);
-  const railDash = mk('path', { d: D.rail, class: 'm-rail-dash', fill: 'none' }, gRail);
+  const railSrc = mk('path', { id: 'rail-src' }, defs);
+  const railBase = mk('use', { href: '#rail-src', class: 'm-rail', fill: 'none' }, gRail);
+  const railDash = mk('use', { href: '#rail-src', class: 'm-rail-dash', fill: 'none' }, gRail);
 
   const gRoads = group('g-roads');
   const roadEls = {};
   for (const cls of ROAD_ORDER) {
-    roadEls[cls] = { casing: null, fill: null };
-    if (ROADS[cls].casing && D.roads[cls]) {
-      roadEls[cls].casing = mk('path', { d: D.roads[cls], fill: 'none', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, gRoads);
-      roadEls[cls].casing.style.stroke = `var(--rc-${cls})`;
+    roadEls[cls] = { casing: null, fill: null, src: null, ready: false };
+    if (!D.roads[cls]) continue;
+    roadEls[cls].src = mk('path', { id: 'rd-' + cls }, defs);
+    if (ROADS[cls].casing) {
+      const casing = mk('use', { href: '#rd-' + cls, fill: 'none', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, gRoads);
+      casing.style.stroke = `var(--rc-${cls})`;
+      roadEls[cls].casing = casing;
     }
   }
   for (const cls of ROAD_ORDER) {
-    if (!D.roads[cls]) continue;
-    roadEls[cls].fill = mk('path', { d: D.roads[cls], fill: 'none', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, gRoads);
-    roadEls[cls].fill.style.stroke = `var(--r-${cls})`;
+    if (!roadEls[cls].src) continue;
+    const fill = mk('use', { href: '#rd-' + cls, fill: 'none', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, gRoads);
+    fill.style.stroke = `var(--r-${cls})`;
+    roadEls[cls].fill = fill;
+  }
+  function ensureRoad(cls) {
+    const e = roadEls[cls];
+    if (!e || !e.src || e.ready) return;
+    e.src.setAttribute('d', D.roads[cls]);
+    e.ready = true;
   }
 
   const gEntries = group('g-entries');
-  for (const e of D.entries) {
-    mk('path', { d: e.d, class: 'entry-path', fill: e.color, stroke: e.color }, gEntries);
-  }
+  const entryPaths = D.entries.map((e) =>
+    mk('path', { d: e.d, class: 'entry-path', fill: e.color, stroke: e.color }, gEntries));
 
   const gAreas = group('g-areas');
   const areaEls = new Map(); // sid -> {area, path, label, nm}
@@ -134,27 +146,53 @@
   let fitS = 0.1;
   const MAX_S = 4;
   let lastDetailS = -1;
+  let lastBucket = -1;
+  let allowRoadLoad = false;
 
   const viewport = () => {
     const r = svg.getBoundingClientRect();
     return { w: r.width, h: r.height };
   };
-  const applyTransform = () =>
-    world.setAttribute('transform', `translate(${view.tx.toFixed(2)} ${view.ty.toFixed(2)}) scale(${view.s})`);
+  // CSS transform se při posunu skládá na GPU; SVG atribut by při každém pohybu překreslil celou mapu.
+  const applyTransform = () => {
+    world.style.transform = `translate(${view.tx.toFixed(2)}px, ${view.ty.toFixed(2)}px) scale(${view.s})`;
+  };
 
-  // detaily závislé na měřítku (šířky čar, popisky) – jen když se změní zoom
+  // Kdy se má překreslit šířka čar a viditelnost vrstev (ne při každém snímku animace).
+  function detailBucket(s) {
+    let b = 0;
+    if (s >= 0.045) b |= 1;
+    if (s >= 0.05) b |= 2;
+    if (s >= 0.13) b |= 4;
+    if (s >= 0.14) b |= 8;
+    if (s >= 0.2) b |= 16;
+    if (s >= 0.32) b |= 32;
+    if (s >= 0.5) b |= 64;
+    if (S.sel) b |= 128;
+    if (S.layers.areas) b |= 256;
+    return b;
+  }
+
+  // Popisky každý snímek. Šířku silnic a kolejí jen po skoku zoomu asi o 10 %:
+  // stroke-width znovu počítá tisíce úseků a při animaci přiblížení by trhal snímkování.
   function updateDetail() {
     const s = view.s;
-    if (Math.abs(s - lastDetailS) < 1e-9) return;
-    lastDetailS = s;
     const px = 1 / s; // 1 pixel obrazovky v metrech
     world.style.setProperty('--px', px);
+    const bucket = detailBucket(s);
+    const ratio = lastDetailS > 0 ? s / lastDetailS : 0;
+    const refreshStrokes = !(bucket === lastBucket && ratio > 0.9 && ratio < 1 / 0.9);
+    if (refreshStrokes) {
+      lastDetailS = s;
+      lastBucket = bucket;
+    }
 
-    for (const cls of ROAD_ORDER) {
+    if (refreshStrokes) for (const cls of ROAD_ORDER) {
       const r = ROADS[cls];
       const w = Math.max(r.px * px, r.m);
       const vis = s >= r.minS;
       const e = roadEls[cls];
+      if (vis && allowRoadLoad) ensureRoad(cls);
       if (e.fill) {
         e.fill.setAttribute('stroke-width', w);
         e.fill.style.display = vis ? '' : 'none';
@@ -164,19 +202,23 @@
         e.casing.style.display = vis ? '' : 'none';
       }
     }
-    // šrafování plánovaných oblastí má mít konstantní velikost na obrazovce
-    const hatch = $('hatch');
-    hatch.setAttribute('width', 8 * px);
-    hatch.setAttribute('height', 8 * px);
-    hatch.firstElementChild.setAttribute('y2', 8 * px);
-    hatch.firstElementChild.setAttribute('stroke-width', 2 * px);
-    waterways.setAttribute('stroke-width', Math.max(2 * px, 4));
-    railBase.setAttribute('stroke-width', 2 * px);
-    railDash.setAttribute('stroke-width', 1.2 * px);
-    railDash.setAttribute('stroke-dasharray', `${6 * px} ${6 * px}`);
-    gZones.querySelectorAll('.zone-path').forEach((p) => p.setAttribute('stroke-width', 1.6 * px));
-    gEntries.querySelectorAll('.entry-path').forEach((p) => p.setAttribute('stroke-width', 1.4 * px));
-    gRail.style.display = s >= 0.05 ? '' : 'none';
+    if (refreshStrokes) {
+      // šrafování plánovaných oblastí má mít konstantní velikost na obrazovce
+      const hatch = $('hatch');
+      hatch.setAttribute('width', 8 * px);
+      hatch.setAttribute('height', 8 * px);
+      hatch.firstElementChild.setAttribute('y2', 8 * px);
+      hatch.firstElementChild.setAttribute('stroke-width', 2 * px);
+      waterways.setAttribute('stroke-width', Math.max(2 * px, 4));
+      railBase.setAttribute('stroke-width', 2 * px);
+      railDash.setAttribute('stroke-width', 1.2 * px);
+      railDash.setAttribute('stroke-dasharray', `${6 * px} ${6 * px}`);
+      const zoneW = 1.6 * px;
+      for (const p of zonePaths) p.setAttribute('stroke-width', zoneW);
+      const entryW = 1.4 * px;
+      for (const p of entryPaths) p.setAttribute('stroke-width', entryW);
+      gRail.style.display = s >= 0.05 ? '' : 'none';
+    }
     if (locPos) {
       locDot.setAttribute('r', Math.max(5 * px, 4));
       locDot.setAttribute('stroke-width', Math.max(2 * px, 1.5));
@@ -460,13 +502,20 @@
   function hideTip() {
     tip.hidden = true;
   }
+  let tipSid = '';
   svg.addEventListener('pointermove', (e) => {
     if (drag && drag.moved) return;
     const p = e.target.__sid ? e.target : null;
-    if (!p) return hideTip();
-    const a = areaBySid.get(p.__sid);
-    const status = a.planned ? 'rezidentní parkování zatím není zavedeno' : a.zone ? 'zóna ' + a.zone : 'mimo zóny A/B/C';
-    tip.innerHTML = `<b>Oblast ${esc(a.sid)}</b> · ${esc(a.name)}<br>${esc(status)} · <span class="n">${km2(a.area)} km²</span>`;
+    if (!p) {
+      tipSid = '';
+      return hideTip();
+    }
+    if (p.__sid !== tipSid) {
+      tipSid = p.__sid;
+      const a = areaBySid.get(p.__sid);
+      const status = a.planned ? 'rezidentní parkování zatím není zavedeno' : a.zone ? 'zóna ' + a.zone : 'mimo zóny A/B/C';
+      tip.innerHTML = `<b>Oblast ${esc(a.sid)}</b> · ${esc(a.name)}<br>${esc(status)} · <span class="n">${km2(a.area)} km²</span>`;
+    }
     tip.hidden = false;
     const box = svg.parentElement.getBoundingClientRect();
     let x = e.clientX - box.left + 14;
@@ -518,11 +567,11 @@
     if (sel) {
       const b = [Infinity, Infinity, -Infinity, -Infinity];
       for (const id of [sel.sid, ...petals]) {
-        const bb = areaEls.get(id).path.getBBox();
-        b[0] = Math.min(b[0], bb.x);
-        b[1] = Math.min(b[1], bb.y);
-        b[2] = Math.max(b[2], bb.x + bb.width);
-        b[3] = Math.max(b[3], bb.y + bb.height);
+        const bb = areaBox(id);
+        b[0] = Math.min(b[0], bb[0]);
+        b[1] = Math.min(b[1], bb[1]);
+        b[2] = Math.max(b[2], bb[2]);
+        b[3] = Math.max(b[3], bb[3]);
       }
       animateTo(boxView(b[0], b[1], b[2], b[3], 40, 0.9), 600);
     } else if (opts.fit) {
@@ -595,8 +644,8 @@
         updateDetail();
       }
       if (k === 'entries' && S.layers.entries && view.s < 0.3) {
-        const bb = areaEls.get(CENTER_SID).path.getBBox();
-        animateTo(boxView(bb.x, bb.y, bb.x + bb.width, bb.y + bb.height, 40, 1.2), 600);
+        const bb = areaBox(CENTER_SID);
+        animateTo(boxView(bb[0], bb[1], bb[2], bb[3], 40, 1.2), 600);
       }
     };
   });
@@ -796,10 +845,47 @@
     go(sid, { fly: !!sid });
   }
 
+  function areaBox(id) {
+    const b = areaBySid.get(id).b;
+    if (b) return b;
+    const bb = areaEls.get(id).path.getBBox();
+    return [bb.x, bb.y, bb.x + bb.width, bb.y + bb.height];
+  }
+
+  // Podklad po prvním snímku, ať jde mapa hned posouvat. Drobné ulice až v nečinnosti.
+  function scheduleBaseLayers() {
+    allowRoadLoad = true;
+    const jobs = [
+      () => waterEl.setAttribute('d', D.water),
+      () => waterways.setAttribute('d', D.waterways),
+      () => woodsEl.setAttribute('d', D.woods),
+      () => parksEl.setAttribute('d', D.parks),
+      () => railSrc.setAttribute('d', D.rail),
+      () => {
+        for (const cls of ROAD_ORDER) if (ROADS[cls].minS < 0.1) ensureRoad(cls);
+      },
+    ];
+    let i = 0;
+    const step = () => {
+      if (i >= jobs.length) {
+        const rest = () => {
+          for (const cls of ROAD_ORDER) if (ROADS[cls].minS >= 0.1) ensureRoad(cls);
+        };
+        if (window.requestIdleCallback) requestIdleCallback(rest, { timeout: 1200 });
+        else setTimeout(rest, 80);
+        return;
+      }
+      jobs[i++]();
+      requestAnimationFrame(step);
+    };
+    setTimeout(() => requestAnimationFrame(step), 0);
+  }
+
   // ---------------------------------------------------------------- start
   buildControls();
   fitAll(false);
   applyUrl();
+  scheduleBaseLayers();
   window.addEventListener('popstate', applyUrl);
   window.addEventListener('hashchange', applyUrl);
 })();

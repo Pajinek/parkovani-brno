@@ -118,10 +118,10 @@ main.grid { display: grid; grid-template-columns: minmax(0, 1fr) 420px; gap: 20p
 .crumbs button:hover { text-decoration-color: var(--accent); }
 .crumbs span.cur { font-weight: 600; color: var(--fg); }
 
-.mapbox { position: relative; }
-#map { display: block; width: 100%; height: min(72vh, 760px); min-height: 380px; touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; }
+.mapbox { position: relative; contain: layout paint; }
+#map { display: block; width: 100%; height: min(72vh, 760px); min-height: 380px; touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; background: var(--m-bg); }
+#world { transform-box: view-box; transform-origin: 0 0; will-change: transform; }
 #map.drag { cursor: grabbing; }
-#bg { fill: var(--m-bg); }
 .zoom { position: absolute; right: 12px; bottom: 12px; display: flex; flex-direction: column; gap: 4px; }
 .zoom button { width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); font: 600 18px/1 var(--f-body); cursor: pointer; box-shadow: var(--shadow); display: inline-flex; align-items: center; justify-content: center; padding: 0; }
 .zoom button:hover { border-color: var(--accent); }
@@ -138,7 +138,7 @@ main.grid { display: grid; grid-template-columns: minmax(0, 1fr) 420px; gap: 20p
 }
 .loc-acc { fill: color-mix(in srgb, var(--accent) 18%, transparent); stroke: var(--accent); stroke-opacity: .45; pointer-events: none; }
 .loc-dot { fill: var(--accent); stroke: var(--surface); pointer-events: none; }
-.loc-pulse { fill: none; stroke: var(--accent); stroke-opacity: .55; pointer-events: none; }
+.loc-pulse { fill: none; stroke: var(--accent); stroke-opacity: .55; pointer-events: none; will-change: opacity; }
 @media (prefers-reduced-motion: no-preference) {
   .loc-pulse { animation: loc-pulse 1.8s ease-out infinite; }
   .zoom button.locating svg { animation: loc-spin 1s linear infinite; }
@@ -161,6 +161,8 @@ main.grid { display: grid; grid-template-columns: minmax(0, 1fr) 420px; gap: 20p
 
 /* ---------- vrstvy SVG ---------- */
 #world path, #world text { vector-effect: none; }
+#g-base, #g-roads, #g-rail, #g-places { pointer-events: none; }
+#g-roads, #g-rail { shape-rendering: optimizeSpeed; }
 .m-wood { fill: var(--m-wood); fill-rule: evenodd; }
 .m-park { fill: var(--m-park); fill-rule: evenodd; }
 .m-water { fill: var(--m-water); fill-rule: evenodd; }
@@ -185,7 +187,6 @@ main.grid { display: grid; grid-template-columns: minmax(0, 1fr) 420px; gap: 20p
   stroke-linejoin: round;
   cursor: pointer;
   pointer-events: all;
-  transition: opacity .2s;
 }
 .area.planned { fill: url(#hatch); stroke-dasharray: calc(var(--px, 10) * 6px) calc(var(--px, 10) * 4px); }
 .area:hover { stroke: var(--fg); stroke-width: calc(var(--px, 10) * 1.6px); }
