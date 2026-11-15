@@ -48,7 +48,18 @@ Princip platí i pro návštěvy: kdo dostane volné hodiny od rezidenta, může
 
 Rezident z historického centra může dát návštěvě volné hodiny, ale návštěva musí zaparkovat v sousedních oblastech zóny B, ne v centru.
 
-Hodiny pro návštěvy si rezident může jednou ročně dokoupit (+100 h v zóně A/B, +50 h v zóně C, vždy 200 Kč). Postup je v [README](../README.md#dokoupení-dalších-hodin).
+## Hodiny pro návštěvy
+
+Rezident registruje návštěvu v osobní stránce uživatele (OSU). Na dobu platných hodin zadá **jednu registrační značku**. Další značku lze zadat až po skončení této doby, současně tedy parkuje jen jedno vozidlo.
+
+Základní hodiny jsou zdarma. Když nestačí, lze je **jednou ročně přikoupit**. Dokoupené hodiny platí rok a platí pro ně stejné pravidlo jedné značky.
+
+| Zóna rezidenta | Zdarma za rok | Dokoupení | Cena | Maximum za rok |
+| --- | --- | --- | --- | --- |
+| **A a B** | 200 hodin | +100 hodin | 200 Kč | 300 hodin |
+| **C** | 100 hodin | +50 hodin | 200 Kč | 150 hodin |
+
+Návštěva parkuje v květince rezidenta. Postup žádosti a platby je v [README](../README.md#dokoupení-dalších-hodin).
 
 ## 5. Historické centrum (zóna A, oblast 1-01)
 
