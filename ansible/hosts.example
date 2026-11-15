@@ -1,0 +1,2 @@
+# cp ansible/hosts.example ansible/hosts
+s1.varhoo.cz ansible_user=root

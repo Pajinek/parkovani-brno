@@ -1,0 +1,11 @@
+---
+- name: Zapsat Apache vhost
+  ansible.builtin.template:
+    src: "{{ playbook_dir }}/../apache/parkovani-brno.conf.j2"
+    dest: "/etc/apache2/sites-available/{{ site_name }}.conf"
+    owner: root
+    group: root
+    mode: "0644"
+  vars:
+    tls_ready: "{{ cert_stat.stat.exists | bool }}"
+  register: vhost
