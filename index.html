@@ -3,12 +3,75 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Parkování v Brně: mapa zón a oblastí</title>
-  <meta name="description" content="Interaktivní mapa parkovacích zón A, B, C a rezidentních oblastí v Brně včetně principu „květinky“.">
+  <title>Parkování v Brně: mapa zón A, B, C a parkovacích kytiček</title>
+  <meta name="description" content="Interaktivní mapa parkování v Brně. Zóny A, B a C, rezidentní oblasti a parkovací kytičky: kde platí návštěvnický tarif a kde smí parkovat držitel oprávnění.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="varhoo.cz">
+  <meta name="geo.region" content="CZ-64">
+  <meta name="geo.placename" content="Brno">
+  <link rel="canonical" href="https://parkovanivbrne.varhoo.cz/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="cs_CZ">
+  <meta property="og:site_name" content="Parkování v Brně">
+  <meta property="og:title" content="Parkování v Brně: mapa zón a parkovacích kytiček">
+  <meta property="og:description" content="Interaktivní mapa parkovacích zón A, B, C a parkovacích kytiček pro rezidenty. Ukáže, kde v Brně platí návštěvnický tarif a kde smí parkovat držitel oprávnění.">
+  <meta property="og:url" content="https://parkovanivbrne.varhoo.cz/">
+  <meta property="og:image" content="https://parkovanivbrne.varhoo.cz/img/og.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Parkování v Brně: interaktivní mapa zón A, B, C a parkovacích kytiček pro rezidenty.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Parkování v Brně: mapa zón a parkovacích kytiček">
+  <meta name="twitter:description" content="Interaktivní mapa parkovacích zón A, B, C a parkovacích kytiček pro rezidenty. Ukáže, kde platí tarif a kde smí parkovat držitel oprávnění.">
+  <meta name="twitter:image" content="https://parkovanivbrne.varhoo.cz/img/og.png">
+  <meta name="twitter:image:alt" content="Parkování v Brně: interaktivní mapa zón A, B, C a parkovacích kytiček pro rezidenty.">
   <meta name="theme-color" content="#c8102e">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://parkovanivbrne.varhoo.cz/#website",
+        "url": "https://parkovanivbrne.varhoo.cz/",
+        "name": "Parkování v Brně",
+        "description": "Interaktivní mapa parkovacích zón A, B, C a parkovacích kytiček pro rezidenty v Brně.",
+        "inLanguage": "cs",
+        "publisher": { "@id": "https://parkovanivbrne.varhoo.cz/#publisher" }
+      },
+      {
+        "@type": "WebApplication",
+        "name": "Mapa parkování v Brně",
+        "url": "https://parkovanivbrne.varhoo.cz/",
+        "applicationCategory": "MapApplication",
+        "operatingSystem": "Web",
+        "browserRequirements": "Vyžaduje JavaScript",
+        "isAccessibleForFree": true,
+        "inLanguage": "cs",
+        "description": "Neoficiální interaktivní mapa parkování v Brně. Ukáže zóny A, B a C, rezidentní oblasti a parkovací kytičku: kde platí návštěvnický tarif a kde smí parkovat držitel oprávnění.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CZK" },
+        "about": {
+          "@type": "Place",
+          "name": "Brno",
+          "address": { "@type": "PostalAddress", "addressLocality": "Brno", "addressCountry": "CZ" }
+        },
+        "publisher": { "@id": "https://parkovanivbrne.varhoo.cz/#publisher" }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://parkovanivbrne.varhoo.cz/#publisher",
+        "name": "varhoo.cz",
+        "url": "https://varhoo.cz"
+      }
+    ]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400..700&family=Source+Serif+4:opsz,wght@8..60,700..800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400..700&family=Source+Serif+4:opsz,wght@8..60,700..800&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400..700&family=Source+Serif+4:opsz,wght@8..60,700..800&display=swap"></noscript>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -20,6 +83,7 @@
       <div>
         <div class="eyebrow">Návštěvnické zóny · rezidentní oblasti</div>
         <h1><a class="site-title" href="index.html">Parkování v Brně</a> <em>A · B · C</em></h1>
+        <p class="tagline">Interaktivní mapa parkovacích zón a parkovacích kytiček pro rezidenty.</p>
       </div>
     </div>
     <div class="controls">
@@ -74,7 +138,7 @@
     <div class="cols">
       <section>
         <h2>O mapě</h2>
-        <p>Neoficiální přehled parkovacích zón A, B, C a rezidentních oblastí v Brně. Mapa ukazuje, kde platí návštěvnické tarify a kde mohou parkovat držitelé oprávnění.</p>
+        <p>Neoficiální přehled parkování v Brně. Mapa ukáže, kde platí návštěvnické tarify a kde mohou parkovat držitelé rezidentního oprávnění: ve vlastní oblasti a v sousedních, tedy v parkovací kytičce.</p>
         <p>Závazné je vždy svislé dopravní značení a informace na <a href="https://www.parkovanivbrne.cz" target="_blank" rel="noopener">parkovanivbrne.cz</a>.</p>
       </section>
       <section>
@@ -88,8 +152,15 @@
       </section>
       <section>
         <h2>Co je květinka</h2>
-        <p>Oprávnění platí ve vlastní oblasti (střed) a ve všech oblastech, které se jí dotýkají hranou nebo rohem (okvětní lístky). Oblast 1-01 historického centra nemůže být lístkem. V ostatních oblastech platíte jako návštěvník.</p>
+        <p>Parkovací kytička, v materiálech města květinka, platí ve vlastní oblasti (střed) a ve všech oblastech, které se jí dotýkají hranou nebo rohem (okvětní lístky). Oblast 1-01 historického centra nemůže být lístkem. V ostatních oblastech platíte jako návštěvník.</p>
       </section>
+    </div>
+    <div class="bottom">
+      <p class="credit">
+        <a href="https://varhoo.cz" target="_blank" rel="noopener"><img src="https://www.varhoo.cz/img/logo.png" alt="varhoo.cz" width="78" height="28"></a>
+        <span>Projekt byl vytvořen a je hostován díky <a href="https://varhoo.cz" target="_blank" rel="noopener">varhoo.cz</a>.</span>
+      </p>
+      <p>Zdrojový kód a data: <a href="https://github.com/Pajinek/parkovani-brno" target="_blank" rel="noopener">Pajinek/parkovani-brno</a></p>
     </div>
   </footer>
 </div>
