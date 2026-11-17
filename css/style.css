@@ -288,7 +288,7 @@ tr.row.planned td { color: var(--muted); }
 footer { margin-top: 32px; padding: 20px 0 max(32px, env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--line); font-size: 13px; line-height: 1.55; color: var(--muted); }
 footer a { color: var(--fg); text-underline-offset: 2px; }
 footer a:hover { color: var(--accent); }
-footer code { background: var(--surface-2); padding: 1px 4px; border-radius: 4px; }
+.sheet code, footer code { background: var(--surface-2); padding: 1px 4px; border-radius: 4px; }
 footer .cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px 40px; }
 footer h2 { margin: 0 0 6px; font: 600 11px/1.2 var(--f-body); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
 footer p { margin: 0 0 8px; }
